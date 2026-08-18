@@ -1,0 +1,1072 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio | Didan</title>
+
+    <!-- =========================================================
+       01. GOOGLE FONTS
+       ========================================================= -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Quicksand:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- =========================================================
+       02. CSS
+       Struktur CSS sengaja dipisahkan per bagian agar mudah dicari.
+       ========================================================= -->
+    <style>
+      /* ---------- 02.1 THEME / WARNA UTAMA ---------- */
+      :root {
+        --bg: #080a10;
+        --surface: #10131c;
+        --surface-soft: #151926;
+        --text: #f5f5f7;
+        --text-soft: #a7adbd;
+        --line: rgba(255, 255, 255, 0.09);
+
+        /* Warna tema Kanade */
+        --kanade-blue: #aebeff;
+        --kanade-blue-soft: #d5ddff;
+        --kanade-purple: #8d82c7;
+
+        --max-width: 1120px;
+        --radius: 20px;
+      }
+
+      /* ---------- 02.2 RESET ---------- */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background:
+          radial-gradient(
+            circle at 85% 5%,
+            rgba(174, 190, 255, 0.12),
+            transparent 28rem
+          ),
+          radial-gradient(
+            circle at 10% 40%,
+            rgba(141, 130, 199, 0.07),
+            transparent 25rem
+          ),
+          var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      img {
+        display: block;
+        width: 100%;
+      }
+
+      .container {
+        width: min(calc(100% - 40px), var(--max-width));
+        margin: auto;
+      }
+
+      /* ---------- 02.3 NAVBAR ---------- */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        background: rgba(8, 10, 16, 0.72);
+        backdrop-filter: blur(16px);
+        border-bottom: 1px solid transparent;
+        transition: 0.25s;
+      }
+
+      nav.scrolled {
+        border-bottom-color: var(--line);
+      }
+
+      .nav-inner {
+        min-height: 72px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+      }
+
+      .brand {
+        font-weight: 800;
+        letter-spacing: -0.04em;
+      }
+
+      .brand span {
+        color: var(--kanade-blue);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 24px;
+        list-style: none;
+      }
+
+      .nav-links a {
+        color: var(--text-soft);
+        font-size: 0.9rem;
+        transition: 0.2s;
+      }
+
+      .nav-links a:hover {
+        color: var(--text);
+      }
+
+      .menu-btn {
+        display: none;
+        border: 1px solid var(--line);
+        background: var(--surface);
+        color: var(--text);
+        border-radius: 10px;
+        padding: 8px 11px;
+        cursor: pointer;
+      }
+
+      /* ---------- 02.4 HERO ---------- */
+      .hero {
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 130px 0 80px;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 70px;
+        align-items: center;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        padding: 7px 12px;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.03);
+        color: var(--kanade-blue-soft);
+        border-radius: 999px;
+        font-size: 0.78rem;
+        margin-bottom: 20px;
+      }
+
+      h1 {
+        font-size: clamp(3rem, 7vw, 6rem);
+        line-height: 0.95;
+        letter-spacing: -0.065em;
+        max-width: 760px;
+      }
+
+      .hero h1 span {
+        color: var(--kanade-blue);
+      }
+
+      .hero-copy {
+        color: var(--text-soft);
+        max-width: 620px;
+        margin: 25px 0 30px;
+        font-size: 1rem;
+      }
+
+      .buttons {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        padding: 12px 17px;
+        border-radius: 12px;
+        border: 1px solid var(--line);
+        background: var(--surface-soft);
+        font-weight: 650;
+        font-size: 0.9rem;
+        transition: 0.2s;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        border-color: rgba(174, 190, 255, 0.5);
+      }
+
+      .btn.primary {
+        background: var(--kanade-blue);
+        color: #080a10;
+        border-color: var(--kanade-blue);
+      }
+
+      /* ---------- 02.5 FOTO PROFIL ---------- */
+      .profile-placeholder {
+        aspect-ratio: 1;
+        border-radius: 28px;
+        background:
+          linear-gradient(135deg, rgba(174, 190, 255, 0.15), transparent),
+          var(--surface);
+        border: 1px solid var(--line);
+        display: grid;
+        place-items: center;
+        color: var(--text-soft);
+        text-align: center;
+        padding: 30px;
+        box-shadow: 0 30px 100px rgba(0, 0, 0, 0.28);
+      }
+
+      .profile-placeholder div {
+        max-width: 220px;
+      }
+
+      .placeholder-icon {
+        font-size: 3rem;
+        margin-bottom: 12px;
+        opacity: 0.7;
+        color: var(--kanade-blue);
+      }
+
+      /* Foto profil asli mengisi penuh kotak placeholder */
+      .profile-placeholder img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 28px;
+      }
+
+      /* ---------- 02.6 SECTION UMUM ---------- */
+      section {
+        padding: 105px 0;
+      }
+
+      .section-heading {
+        margin-bottom: 42px;
+      }
+
+      .section-label {
+        color: var(--kanade-blue);
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        font-size: 0.72rem;
+        font-weight: 800;
+      }
+
+      h2 {
+        font-size: clamp(2rem, 4vw, 3.4rem);
+        letter-spacing: -0.05em;
+        line-height: 1.05;
+        margin-top: 8px;
+      }
+
+      .section-desc {
+        color: var(--text-soft);
+        max-width: 650px;
+        margin-top: 12px;
+      }
+
+      .card {
+        background: rgba(16, 19, 28, 0.78);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 28px;
+      }
+
+      /* ---------- 02.7 BIODATA ---------- */
+      .bio-grid {
+        display: grid;
+        grid-template-columns: 0.85fr 1.15fr;
+        gap: 22px;
+      }
+
+      .identity-list {
+        list-style: none;
+        display: grid;
+      }
+
+      .identity-list li {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 14px 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .identity-list li:last-child {
+        border-bottom: 0;
+      }
+
+      .identity-list span:first-child {
+        color: var(--text-soft);
+      }
+
+      .identity-list span:last-child {
+        text-align: right;
+        font-weight: 600;
+      }
+
+      .about-text {
+        color: var(--text-soft);
+      }
+
+      .about-text p + p {
+        margin-top: 15px;
+      }
+
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 24px;
+      }
+
+      .tag {
+        padding: 7px 10px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        color: var(--kanade-blue-soft);
+        font-size: 0.82rem;
+        background: rgba(255, 255, 255, 0.025);
+      }
+
+      /* ---------- 02.8 PROJECT ---------- */
+      .project-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 22px;
+        max-width: 780px;
+      }
+
+      .project-card {
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--surface);
+      }
+
+      .project-image {
+        aspect-ratio: 16 / 9;
+        background: var(--surface-soft);
+        display: grid;
+        place-items: center;
+        color: var(--text-soft);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .project-image div {
+        text-align: center;
+        padding: 20px;
+      }
+
+      .project-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .project-body {
+        padding: 25px;
+      }
+
+      .project-meta {
+        color: var(--kanade-blue);
+        font-size: 0.74rem;
+        font-weight: 750;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+      }
+
+      .project-body h3 {
+        margin: 7px 0 10px;
+        font-size: 1.35rem;
+      }
+
+      .project-body p {
+        color: var(--text-soft);
+        font-size: 0.92rem;
+      }
+
+      /* ---------- 02.9 KEGIATAN / TIMELINE ---------- */
+      .timeline {
+        position: relative;
+        display: grid;
+        gap: 18px;
+      }
+
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 8px;
+        top: 8px;
+        bottom: 8px;
+        width: 1px;
+        background: var(--line);
+      }
+
+      .timeline-item {
+        position: relative;
+        padding-left: 38px;
+      }
+
+      .timeline-dot {
+        position: absolute;
+        left: 3px;
+        top: 8px;
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+        background: var(--kanade-blue);
+        box-shadow: 0 0 0 5px var(--bg);
+      }
+
+      .timeline-item .card {
+        padding: 22px;
+      }
+
+      .timeline-date {
+        color: var(--kanade-blue);
+        font-size: 0.8rem;
+        font-weight: 700;
+      }
+
+      .timeline-item h3 {
+        margin: 4px 0 7px;
+      }
+
+      .timeline-item p {
+        color: var(--text-soft);
+        font-size: 0.92rem;
+      }
+
+      /* ---------- 02.10 SERTIFIKAT ---------- */
+      .cert-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+      }
+
+      .cert-card {
+        border: 1px solid var(--line);
+        background: var(--surface);
+        border-radius: var(--radius);
+        overflow: hidden;
+      }
+
+      .cert-image {
+        aspect-ratio: 4 / 3;
+        background: var(--surface-soft);
+        display: grid;
+        place-items: center;
+        color: var(--text-soft);
+        text-align: center;
+        padding: 20px;
+      }
+
+      .cert-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .cert-info {
+        padding: 20px;
+      }
+
+      .cert-info h3 {
+        font-size: 1.05rem;
+      }
+
+      .cert-info p {
+        color: var(--text-soft);
+        font-size: 0.84rem;
+        margin-top: 5px;
+      }
+
+      .cert-link {
+        display: inline-block;
+        margin-top: 12px;
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: var(--kanade-blue);
+        border-bottom: 1px solid rgba(174, 190, 255, 0.4);
+      }
+
+      .cert-pdf-icon {
+        font-size: 2.4rem;
+        font-weight: 800;
+        color: var(--kanade-blue);
+      }
+
+      /* ---------- 02.11 KONTAK ---------- */
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 22px;
+      }
+
+      .contact-links {
+        display: grid;
+        gap: 12px;
+        margin-top: 24px;
+      }
+
+      .contact-link {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 15px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.02);
+        transition: 0.2s;
+      }
+
+      .contact-link:hover {
+        transform: translateY(-2px);
+        border-color: rgba(174, 190, 255, 0.45);
+      }
+
+      .contact-icon {
+        width: 38px;
+        height: 38px;
+        display: grid;
+        place-items: center;
+        border-radius: 10px;
+        background: rgba(174, 190, 255, 0.1);
+        color: var(--kanade-blue);
+        font-weight: 800;
+      }
+
+      .contact-link small {
+        display: block;
+        color: var(--text-soft);
+        font-size: 0.75rem;
+      }
+
+      .contact-link strong {
+        font-size: 0.9rem;
+      }
+
+      /* ---------- 02.12 FOOTER ---------- */
+      footer {
+        border-top: 1px solid var(--line);
+        padding: 35px 0;
+        color: var(--text-soft);
+        font-size: 0.85rem;
+      }
+
+      .footer-inner {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      /* ---------- 02.13 RESPONSIVE ---------- */
+      @media (max-width: 850px) {
+        .hero-grid,
+        .bio-grid,
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .hero {
+          min-height: auto;
+          padding-top: 140px;
+        }
+
+        .profile-placeholder {
+          max-width: 440px;
+          margin: auto;
+        }
+
+        .project-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .cert-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .nav-links {
+          display: none;
+          position: absolute;
+          top: 72px;
+          left: 20px;
+          right: 20px;
+          background: var(--surface);
+          border: 1px solid var(--line);
+          border-radius: 15px;
+          padding: 16px;
+          flex-direction: column;
+          gap: 14px;
+        }
+
+        .nav-links.open {
+          display: flex;
+        }
+
+        .menu-btn {
+          display: block;
+        }
+      }
+
+      @media (max-width: 560px) {
+        .container {
+          width: min(calc(100% - 28px), var(--max-width));
+        }
+
+        section {
+          padding: 75px 0;
+        }
+
+        .cert-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .identity-list li {
+          flex-direction: column;
+          gap: 3px;
+        }
+
+        .identity-list span:last-child {
+          text-align: left;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- =========================================================
+       03. NAVIGATION
+       ========================================================= -->
+    <nav id="navbar">
+      <div class="container nav-inner">
+        <!-- GANTI: Nama/logo portfolio -->
+        <a class="brand" href="#home">DIDAN<span>.</span></a>
+
+        <button class="menu-btn" id="menuBtn" aria-label="Buka menu">☰</button>
+
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#about">Biodata</a></li>
+          <li><a href="#projects">Project</a></li>
+          <li><a href="#activities">Kegiatan</a></li>
+          <li><a href="#certificates">Sertifikat</a></li>
+          <li><a href="#contact">Kontak</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- =========================================================
+       04. HERO / INTRO
+       ========================================================= -->
+    <main>
+      <section class="hero" id="home">
+        <div class="container hero-grid">
+          <div>
+            <span class="eyebrow">PERSONAL PORTFOLIO</span>
+
+            <!-- GANTI: Nama utama -->
+            <h1>Najiulloh Didan <span>Syahputra.</span></h1>
+
+            <!-- GANTI: Deskripsi singkat -->
+            <p class="hero-copy">
+              Siswa Teknik Komputer dan Jaringan (TKJ) kelas XII dengan
+              pengalaman praktik di bidang jaringan, instalasi fiber optic, dan
+              perakitan PC. Saat ini sedang mengembangkan minat di bidang Data
+              Analyst dan terus belajar mengolah data untuk menghasilkan insight
+              yang berguna.
+            </p>
+
+            <div class="buttons">
+              <a class="btn primary" href="#about">Lihat Profil</a>
+              <a class="btn" href="#projects">Lihat Project</a>
+            </div>
+          </div>
+
+          <!-- Foto profil -->
+          <div class="profile-placeholder">
+            <img src="Foto Didan.png" alt="Foto Profil Didan" />
+          </div>
+        </div>
+      </section>
+
+      <!-- =======================================================
+         05. BIODATA
+         ======================================================= -->
+      <section id="about">
+        <div class="container">
+          <div class="section-heading">
+            <div class="section-label">01 / Biodata</div>
+            <h2>Identitas & Profil</h2>
+            <p class="section-desc">
+              Bagian ini untuk memperkenalkan diri secara singkat dan
+              menampilkan informasi dasar.
+            </p>
+          </div>
+
+          <div class="bio-grid">
+            <!-- GANTI: DATA IDENTITAS DI SINI -->
+            <div class="card">
+              <ul class="identity-list">
+                <li><span>Nama</span><span>Didan Najiulloh</span></li>
+                <li>
+                  <span>Tempat, Tanggal Lahir</span
+                  ><span>Bandung, 25 juli 1009</span>
+                </li>
+                <li>
+                  <span>Pendidikan</span
+                  ><span>SMK - Teknik Komputer & Jaringan</span>
+                </li>
+                <li><span>Kelas</span><span>XII TKJ</span></li>
+                <li><span>Email</span><span>najiullohdidan@gmail.com</span></li>
+                <li>
+                  <span>Bidang</span
+                  ><span>Jaringan Komputer & Data Analyst</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- GANTI: DESKRIPSI TENTANG DIRI DI SINI -->
+            <div class="card">
+              <div class="about-text">
+                <p>
+                  Saya siswa kelas XII jurusan Teknik Komputer dan Jaringan
+                  (TKJ) yang selama ini aktif praktik langsung di bidang
+                  jaringan komputer, mulai dari instalasi kabel fiber optic
+                  hingga perakitan PC. Pengalaman ini membangun kemampuan saya
+                  dalam troubleshooting dan bekerja secara sistematis.
+                </p>
+
+                <p>
+                  Selain jaringan, saya sedang mengembangkan minat di bidang
+                  Data Analyst belajar mengolah, menganalisis, dan
+                  memvisualisasikan data agar dapat diambil keputusan yang
+                  tepat. Ke depannya saya ingin menggabungkan latar belakang IT
+                  dengan kemampuan analisis data.
+                </p>
+              </div>
+
+              <!-- Skill / minat -->
+              <div class="tags">
+                <span class="tag">Jaringan Komputer</span>
+                <span class="tag">Fiber Optic</span>
+                <span class="tag">Rakit PC</span>
+                <span class="tag">Troubleshooting</span>
+                <span class="tag">Data Analyst</span>
+                <span class="tag">Microsoft Excel</span>
+                <span class="tag">SQL Dasar</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =======================================================
+         06. PROJECT
+         Tambah/copy <article class="project-card"> untuk project baru.
+         ======================================================= -->
+      <section id="projects">
+        <div class="container">
+          <div class="section-heading">
+            <div class="section-label">02 / Project</div>
+            <h2>Project yang Dikerjakan</h2>
+            <p class="section-desc">
+              Kumpulan project dapat ditampilkan dengan foto, deskripsi,
+              teknologi yang digunakan, dan hasil akhir.
+            </p>
+          </div>
+
+          <div class="project-grid">
+            <!-- PROJECT 01 -->
+            <article class="project-card">
+              <div class="project-image">
+                <img
+                  src="Dokumentasi FiberOptic.jpeg"
+                  alt="Dokumentasi instalasi fiber optic"
+                />
+              </div>
+
+              <div class="project-body">
+                <div class="project-meta">Project 01</div>
+                <h3>Instalasi & Terminasi Fiber Optic</h3>
+                <p>
+                  Dokumentasi praktik instalasi dan penyambungan
+                  (splicing/terminasi) kabel fiber optic, salah satu materi
+                  praktik utama jurusan TKJ.
+                </p>
+              </div>
+            </article>
+
+            <!-- PROJECT 02 -->
+            <article class="project-card">
+              <div class="project-image">
+                <img
+                  src="Dokumentasi Rakit PC.png"
+                  alt="Dokumentasi perakitan PC"
+                />
+              </div>
+
+              <div class="project-body">
+                <div class="project-meta">Project 02</div>
+                <h3>Perakitan & Instalasi PC</h3>
+                <p>
+                  Dokumentasi praktik merakit komputer dari komponen dasar
+                  hingga siap digunakan, termasuk instalasi sistem operasi.
+                </p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- =======================================================
+         07. KEGIATAN / PENGALAMAN
+         ======================================================= -->
+      <section id="activities">
+        <div class="container">
+          <div class="section-heading">
+            <div class="section-label">03 / Kegiatan</div>
+            <h2>Pengalaman & Kegiatan</h2>
+            <p class="section-desc">
+              Timeline kegiatan yang pernah dilakukan, seperti organisasi,
+              kepanitiaan, pelatihan, atau kegiatan lainnya.
+            </p>
+          </div>
+
+          <div class="timeline">
+            <!-- KEGIATAN 01 : GANTI tanggal/bulan -->
+            <div class="timeline-item">
+              <span class="timeline-dot"></span>
+
+              <div class="card">
+                <div class="timeline-date"><!-- GANTI: bulan/tahun --></div>
+                <h3>Pelatihan IT Essentials</h3>
+                <p>
+                  Mengikuti pelatihan IT Essentials yang membahas dasar-dasar
+                  perangkat keras komputer, sistem operasi, dan jaringan.
+                </p>
+              </div>
+            </div>
+
+            <!-- KEGIATAN 02 : GANTI tanggal/bulan -->
+            <div class="timeline-item">
+              <span class="timeline-dot"></span>
+
+              <div class="card">
+                <div class="timeline-date"><!-- GANTI: bulan/tahun --></div>
+                <h3>Belajar Mandiri Data Analyst</h3>
+                <p>
+                  Mulai mempelajari dasar-dasar Data Analyst secara mandiri,
+                  meliputi Microsoft Excel, SQL, dan visualisasi data, sebagai
+                  persiapan menuju karier di bidang tersebut.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =======================================================
+         08. SERTIFIKAT
+         ======================================================= -->
+      <section id="certificates">
+        <div class="container">
+          <div class="section-heading">
+            <div class="section-label">04 / Sertifikat</div>
+            <h2>Sertifikat</h2>
+            <p class="section-desc">
+              Dokumentasi sertifikat dapat ditampilkan sebagai galeri beserta
+              nama sertifikat, penyelenggara, dan tahun.
+            </p>
+          </div>
+
+          <div class="cert-grid">
+            <!-- SERTIFIKAT 01 : Sertifikat asli (file PDF) -->
+            <article class="cert-card">
+              <div class="cert-image">
+                <div>
+                  <div class="cert-pdf-icon">PDF</div>
+                  <strong>IT Essentials</strong>
+                </div>
+              </div>
+
+              <div class="cert-info">
+                <h3>IT Essentials Certificate</h3>
+                <p>Cisco Networking Academy</p>
+                <a
+                  class="cert-link"
+                  href="IT_Essentials_certificate_najiullohdidan-gmail-com_d87cdbeb-3ab3-4b19-90d6-0d1b2ad4c6d5.pdf"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Lihat Sertifikat (PDF) →
+                </a>
+              </div>
+            </article>
+
+            <!-- SERTIFIKAT 02 : GANTI dengan sertifikat lain jika ada -->
+            <article class="cert-card">
+              <div class="cert-image">
+                <div>
+                  <strong>Sertifikat</strong>
+                  <p>Ganti dengan foto/scan sertifikat</p>
+                </div>
+              </div>
+
+              <div class="cert-info">
+                <h3>Nama Sertifikat</h3>
+                <p>Penyelenggara · Tahun</p>
+              </div>
+            </article>
+
+            <!-- SERTIFIKAT 03 : GANTI dengan sertifikat lain jika ada -->
+            <article class="cert-card">
+              <div class="cert-image">
+                <div>
+                  <strong>Sertifikat</strong>
+                  <p>Ganti dengan foto/scan sertifikat</p>
+                </div>
+              </div>
+
+              <div class="cert-info">
+                <h3>Nama Sertifikat</h3>
+                <p>Penyelenggara · Tahun</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- =======================================================
+         09. KONTAK
+         GANTI username/link di bagian ini.
+         ======================================================= -->
+      <section id="contact">
+        <div class="container">
+          <div class="section-heading">
+            <div class="section-label">05 / Kontak</div>
+            <h2>Hubungi Saya</h2>
+            <p class="section-desc">
+              Bagian ini untuk menyediakan beberapa jalur komunikasi aktif dan
+              akun profesional yang saya punya.
+            </p>
+          </div>
+
+          <div class="contact-grid">
+            <div class="card">
+              <h3>Social & Contact</h3>
+
+              <div class="contact-links">
+                <!-- GANTI: NOMOR WHATSAPP -->
+                <a
+                  class="contact-link"
+                  href="https://wa.me/6285148300314"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <div class="contact-icon">WA</div>
+                  <div>
+                    <small>WhatsApp</small>
+                    <strong>+62 851-4830-0314</strong>
+                  </div>
+                </a>
+
+                <!-- GANTI: USERNAME INSTAGRAM -->
+                <a
+                  class="contact-link"
+                  href="https://instagram.com/idk2hidun"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <div class="contact-icon">IG</div>
+                  <div>
+                    <small>Instagram</small>
+                    <strong>@idk2hidun</strong>
+                  </div>
+                </a>
+
+                <!-- GANTI: USERNAME GITHUB -->
+                <a
+                  class="contact-link"
+                  href="https://github.com/dundun-cell"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <div class="contact-icon">GH</div>
+                  <div>
+                    <small>GitHub</small>
+                    <strong>github.com/dundun-cell</strong>
+                  </div>
+                </a>
+              </div>
+            </div>
+
+            <div class="card">
+              <h3>Email</h3>
+
+              <!-- Email -->
+              <p class="section-desc">najiullohdidan@gmail.com</p>
+
+              <div class="buttons" style="margin-top: 24px">
+                <a class="btn primary" href="mailto:najiullohdidan@gmail.com">
+                  Kirim Email
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- =========================================================
+       10. FOOTER
+       ========================================================= -->
+    <footer>
+      <div class="container footer-inner">
+        <span>© 2026 Didan Najiulloh. All rights reserved.</span>
+        <span>Personal Portfolio</span>
+      </div>
+    </footer>
+
+    <!-- =========================================================
+       11. JAVASCRIPT
+       ========================================================= -->
+    <script>
+      // ---------- 11.1 NAVBAR SCROLL ----------
+      const navbar = document.getElementById("navbar");
+
+      window.addEventListener("scroll", () => {
+        navbar.classList.toggle("scrolled", window.scrollY > 10);
+      });
+
+      // ---------- 11.2 MOBILE MENU ----------
+      const menuBtn = document.getElementById("menuBtn");
+      const navLinks = document.getElementById("navLinks");
+
+      menuBtn.addEventListener("click", () => {
+        navLinks.classList.toggle("open");
+      });
+
+      // ---------- 11.3 TUTUP MENU SETELAH MEMILIH NAVIGASI ----------
+      document.querySelectorAll(".nav-links a").forEach((link) => {
+        link.addEventListener("click", () => {
+          navLinks.classList.remove("open");
+        });
+      });
+    </script>
+  </body>
+</html>
